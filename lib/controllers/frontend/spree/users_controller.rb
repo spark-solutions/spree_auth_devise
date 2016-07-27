@@ -1,7 +1,7 @@
 class Spree::UsersController < Spree::StoreController
-  skip_before_filter :set_current_order, :only => :show
-  prepend_before_filter :load_object, :only => [:show, :edit, :update]
-  prepend_before_filter :authorize_actions, :only => :new
+  skip_before_filter :set_current_order, only: :show
+  prepend_before_filter :load_object, only: [:show, :edit, :update]
+  prepend_before_filter :authorize_actions, only: :new
 
   include Spree::Core::ControllerHelpers
 
@@ -13,9 +13,7 @@ class Spree::UsersController < Spree::StoreController
     @user = Spree::User.new(user_params)
     if @user.save
 
-      if current_order
-        session[:guest_token] = nil
-      end
+      session[:guest_token] = nil if current_order
 
       redirect_back_or_default(root_url)
     else
@@ -28,29 +26,30 @@ class Spree::UsersController < Spree::StoreController
       if params[:user][:password].present?
         # this logic needed b/c devise wants to log us out after password changes
         user = Spree::User.reset_password_by_token(params[:user])
-        sign_in(@user, :event => :authentication, :bypass => !Spree::Auth::Config[:signout_after_password_change])
+        sign_in(@user, event: :authentication, bypass: !Spree::Auth::Config[:signout_after_password_change])
       end
-      redirect_to spree.account_url, :notice => Spree.t(:account_updated)
+      redirect_to spree.account_url, notice: Spree.t(:account_updated)
     else
       render :edit
     end
   end
 
   private
-    def user_params
-      params.require(:user).permit(Spree::PermittedAttributes.user_attributes)
-    end
 
-    def load_object
-      @user ||= spree_current_user
-      authorize! params[:action].to_sym, @user
-    end
+  def user_params
+    params.require(:user).permit(Spree::PermittedAttributes.user_attributes)
+  end
 
-    def authorize_actions
-      authorize! params[:action].to_sym, Spree::User.new
-    end
+  def load_object
+    @user ||= spree_current_user
+    authorize! params[:action].to_sym, @user
+  end
 
-    def accurate_title
-      Spree.t(:my_account)
-    end
+  def authorize_actions
+    authorize! params[:action].to_sym, Spree::User.new
+  end
+
+  def accurate_title
+    Spree.t(:my_account)
+  end
 end

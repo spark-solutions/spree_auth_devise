@@ -1,5 +1,4 @@
 RSpec.feature 'Sign In', type: :feature do
-
   background do
     @user = create(:user, email: 'email@person.com', password: 'secret', password_confirmation: 'secret')
     visit spree.login_path
@@ -44,11 +43,11 @@ RSpec.feature 'Sign In', type: :feature do
     expect(current_path).to eq '/admin/orders'
   end
 
-  it "should store the user previous location" do
+  it 'should store the user previous location' do
     visit spree.account_path
-    fill_in "Email", with: @user.email
-    fill_in "Password", with: @user.password
-    click_button "Login"
-    expect(current_path).to eq "/account"
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    click_button 'Login'
+    expect(current_path).to eq '/account'
   end
 end

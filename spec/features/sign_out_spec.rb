@@ -1,10 +1,9 @@
 RSpec.feature 'Sign Out', type: :feature do
-
   given!(:user) do
-   create(:user,
-          email: 'email@person.com',
-          password: 'secret',
-          password_confirmation: 'secret')
+    create(:user,
+           email: 'email@person.com',
+           password: 'secret',
+           password_confirmation: 'secret')
   end
 
   background do

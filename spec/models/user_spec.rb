@@ -1,5 +1,4 @@
 RSpec.describe Spree::User, type: :model do
-
   before(:all) { Spree::Role.create name: 'admin' }
 
   it '#admin?' do
@@ -35,22 +34,22 @@ RSpec.describe Spree::User, type: :model do
       user2 = build(:user)
       user2.email = user1.email
       expect(user2.save).to be false
-      expect(user2.errors.messages[:email].first).to eq "has already been taken"
+      expect(user2.errors.messages[:email].first).to eq 'has already been taken'
 
       user1.destroy
       expect(user2.save).to be true
     end
   end
 
-  describe "confirmable" do
-    it "is confirmable if the confirmable option is enabled" do
+  describe 'confirmable' do
+    it 'is confirmable if the confirmable option is enabled' do
       set_confirmable_option(true)
       Spree::UserMailer.stub(:confirmation_instructions).and_return(double(deliver: true))
       expect(Spree::User.devise_modules).to include(:confirmable)
       set_confirmable_option(false)
     end
 
-    it "is not confirmable if the confirmable option is disabled" do
+    it 'is not confirmable if the confirmable option is disabled' do
       set_confirmable_option(false)
       expect(Spree::User.devise_modules).to_not include(:confirmable)
     end

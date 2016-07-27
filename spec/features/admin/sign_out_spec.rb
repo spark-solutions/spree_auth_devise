@@ -1,7 +1,6 @@
 RSpec.feature 'Admin - Sign Out', type: :feature do
-
   given!(:user) do
-   create :user, email: 'email@person.com'
+    create :user, email: 'email@person.com'
   end
 
   background do

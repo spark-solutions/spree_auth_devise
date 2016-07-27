@@ -1,5 +1,4 @@
 RSpec.describe Spree::UserMailer, type: :mailer do
-
   let!(:store) { create(:store) }
   let(:user) { create(:user) }
 
@@ -37,9 +36,9 @@ RSpec.describe Spree::UserMailer, type: :mailer do
 
     describe 'legacy support for User object' do
       it 'sends an email' do
-        expect {
+        expect do
           described_class.reset_password_instructions(user, 'token goes here').deliver_later
-        }.to change(ActionMailer::Base.deliveries, :size).by(1)
+        end.to change(ActionMailer::Base.deliveries, :size).by(1)
       end
     end
   end
