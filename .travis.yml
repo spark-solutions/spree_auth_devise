@@ -16,6 +16,7 @@ env:
 language: ruby
 
 rvm:
+  - 2.6.3
   - 2.5.1
   - 2.4.4
   - 2.3.7
@@ -31,14 +32,21 @@ matrix:
     allow_failures:
       - gemfile: gemfiles/spree_master.gemfile
     exclude:
-    - rvm: 2.3.7
-      gemfile: gemfiles/spree_4_0.gemfile
-    - rvm: 2.4.4
-      gemfile: gemfiles/spree_4_0.gemfile
-    - rvm: 2.3.7
-      gemfile: gemfiles/spree_master.gemfile
-    - rvm: 2.4.4
-      gemfile: gemfiles/spree_master.gemfile
+      - rvm: 2.3.7
+        gemfile: gemfiles/spree_4_0.gemfile
+      - rvm: 2.4.4
+        gemfile: gemfiles/spree_4_0.gemfile
+      - rvm: 2.3.7
+        gemfile: gemfiles/spree_master.gemfile
+      - rvm: 2.4.4
+        gemfile: gemfiles/spree_master.gemfile
+      - rvm: 2.6.3
+        gemfile: gemfiles/spree_3_2.gemfile
+      - rvm: 2.6.3
+        gemfile: gemfiles/spree_3_5.gemfile
+      - rvm: 2.6.3
+        gemfile: gemfiles/spree_3_7.gemfile
+
 
 before_install:
   - mysql -u root -e "GRANT ALL ON *.* TO 'travis'@'%';"
