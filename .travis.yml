@@ -40,6 +40,10 @@ matrix:
         gemfile: gemfiles/spree_master.gemfile
       - rvm: 2.4.4
         gemfile: gemfiles/spree_master.gemfile
+      - rvm: 2.5.1
+        gemfile: gemfiles/spree_3_2.gemfile
+      - rvm: 2.5.1
+        gemfile: gemfiles/spree_3_5.gemfile
       - rvm: 2.6.3
         gemfile: gemfiles/spree_3_2.gemfile
       - rvm: 2.6.3
