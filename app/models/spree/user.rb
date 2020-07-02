@@ -19,6 +19,8 @@ module Spree
 
     scope :admin, -> { includes(:spree_roles).where("#{roles_table_name}.name" => "admin") }
 
+    belongs_to :store, foreign_key: :store_id, class_name: 'Spree::Store', optional: true
+
     def self.admin_created?
       User.admin.exists?
     end
