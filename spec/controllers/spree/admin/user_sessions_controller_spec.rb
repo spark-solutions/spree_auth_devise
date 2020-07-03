@@ -5,7 +5,7 @@ RSpec.describe Spree::Admin::UserSessionsController, type: :controller do
     subject { get :authorization_failure }
 
     context 'user signed in' do
-      before { allow(controller).to receive(:spree_current_user) { build_stubbed(:user) } }
+      before { allow(controller).to receive(:spree_current_user) { create(:user) } }
 
       it { is_expected.to render_template 'authorization_failure' }
     end

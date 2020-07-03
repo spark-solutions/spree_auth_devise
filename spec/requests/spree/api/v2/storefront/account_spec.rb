@@ -1,5 +1,13 @@
 require 'spec_helper'
 
+def try_spree_current_user
+  if respond_to?(:spree_current_user)
+    spree_current_user
+  elsif respond_to?(:current_spree_user)
+    current_spree_user
+  end
+end
+
 describe 'Storefront API v2 Account spec', type: :request do
   describe 'account#create' do
     before { post '/api/v2/storefront/account', params: params }
@@ -8,9 +16,9 @@ describe 'Storefront API v2 Account spec', type: :request do
       let(:params) do
         {
           "user": {
-            "email": "hello@example.com",
-            "password": "password123",
-            "password_confirmation": "password123"
+            "email": 'hello@example.com',
+            "password": 'password123',
+            "password_confirmation": 'password123'
           }
         }
       end
@@ -26,9 +34,9 @@ describe 'Storefront API v2 Account spec', type: :request do
       let(:params) do
         {
           "user": {
-            "email": "hello@example.com",
-            "password": "password123",
-            "password_confirmation": ""
+            "email": 'hello@example.com',
+            "password": 'password123',
+            "password_confirmation": ''
           }
         }
       end
@@ -37,13 +45,12 @@ describe 'Storefront API v2 Account spec', type: :request do
         expect(JSON.parse(response.body)['error']).to eq("Password Confirmation doesn't match Password")
       end
     end
-
   end
 
   describe 'account#update' do
     include_context 'API v2 tokens'
 
-    let!(:user)  { create(:user_with_addresses) }
+    let!(:user) { create(:user_with_addresses) }
     let(:headers) { headers_bearer }
 
     before { patch '/api/v2/storefront/account', params: params, headers: headers }
@@ -52,9 +59,9 @@ describe 'Storefront API v2 Account spec', type: :request do
       let(:params) do
         {
           "user": {
-            "email": "spree@example.com",
-            "password": "password123",
-            "password_confirmation": "password123"
+            "email": 'spree@example.com',
+            "password": 'password123',
+            "password_confirmation": 'password123'
           }
         }
       end
@@ -70,7 +77,7 @@ describe 'Storefront API v2 Account spec', type: :request do
       let(:params) do
         {
           "user": {
-            "email": "spree@example.com"
+            "email": 'spree@example.com'
           }
         }
       end
@@ -86,9 +93,9 @@ describe 'Storefront API v2 Account spec', type: :request do
       let(:params) do
         {
           "user": {
-            "email": "spree@example.com",
-            "password": "password123",
-            "password_confirmation": ""
+            "email": 'spree@example.com',
+            "password": 'password123',
+            "password_confirmation": ''
           }
         }
       end

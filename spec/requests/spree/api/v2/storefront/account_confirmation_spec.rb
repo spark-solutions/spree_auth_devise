@@ -1,5 +1,13 @@
 require 'spec_helper'
 
+def try_spree_current_user
+  if respond_to?(:spree_current_user)
+    spree_current_user
+  elsif respond_to?(:current_spree_user)
+    current_spree_user
+  end
+end
+
 describe 'Storefront API v2 Account Confirmation spec', type: :request do
   describe 'account_confirmations#show' do
 
@@ -32,7 +40,7 @@ describe 'Storefront API v2 Account Confirmation spec', type: :request do
       end
 
       it 'return JSON API payload of error' do
-        expect(JSON.parse(response.body)['error']).to eq("Confirmation token is invalid")
+        expect(JSON.parse(response.body)['error']).to eq('Confirmation token is invalid')
       end
     end
 
